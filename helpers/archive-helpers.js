@@ -31,10 +31,23 @@ exports.readListOfUrls = function(callback) {
 exports.isUrlInList = function(url, callback) {
 };
 
+// url === ../archives/sites.txt
 exports.addUrlToList = function(url, callback) {
+  fs.appendFile(exports.paths.list, url, function(err) {
+    if (err) {  
+      throw err; 
+    }
+  });
+  console.log('Saved!');
+  // this callback will say if err, throw err, console.log (saved!)
 };
-
+// './sites/www.google.com'
 exports.isUrlArchived = function(url, callback) {
+  //search our sites directory for our url
+  fs.exists(url, (exists) => {
+    callback(exists);
+  });
+  //call the callback on the boolean value of the result
 };
 
 exports.downloadUrls = function(urls) {
