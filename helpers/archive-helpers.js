@@ -26,29 +26,50 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+  fs.readFile(exports.paths.list, function(err, data) {
+    if (err) {
+      throw err;
+    }
+    console.log(data.toString(), ' is our data');
+    callback(data.toString().split('\n')); 
+  });
 };
 
 exports.isUrlInList = function(url, callback) {
+  fs.readFile(exports.paths.list, function(err, data) {
+    if (err) {
+      throw err;
+    }
+    console.log(data.toString(), ' is our data');
+    console.log(url);
+    callback(data.toString().includes(url)); 
+    //if its in the file
+  });
 };
-
 // url === ../archives/sites.txt
 exports.addUrlToList = function(url, callback) {
-  fs.appendFile(exports.paths.list, url, function(err) {
+  fs.appendFile(exports.paths.list, url + '\n', function(err) {
     if (err) {  
       throw err; 
     }
   });
+  callback ? callback() : function(){}();
   console.log('Saved!');
   // this callback will say if err, throw err, console.log (saved!)
 };
 // './sites/www.google.com'
 exports.isUrlArchived = function(url, callback) {
+  console.log('Testing if ' + url + ' exists!');
   //search our sites directory for our url
-  fs.exists(url, (exists) => {
+  
+  fs.exists(path.join(exports.paths.archivedSites, url), (exists) => {
     callback(exists);
   });
   //call the callback on the boolean value of the result
 };
 
 exports.downloadUrls = function(urls) {
+  
+
+
 };
