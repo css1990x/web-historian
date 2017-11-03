@@ -53,7 +53,7 @@ exports.addUrlToList = function(url, callback) {
       throw err; 
     }
   });
-  callback ? callback() : function(){}();
+  callback ? callback() : function() {}();
   console.log('Saved!');
   // this callback will say if err, throw err, console.log (saved!)
 };
